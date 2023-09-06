@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CarModel } from '../car.model';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-offer-ride',
@@ -7,12 +7,33 @@ import { CarModel } from '../car.model';
   styleUrls: ['./offer-ride.component.css']
 })
 export class OfferRideComponent {
-  carModel: CarModel;
-  constructor(){
-    this.carModel = new CarModel();
-  }
+  constructor(private formBuilder: FormBuilder){ }
 
+  carForm = this.formBuilder.group({
+    name: [null, Validators.required],
+    startLocation: [null, Validators.required],
+    destination: [null, Validators.required],
+    car: [null, Validators.required],
+    seatsAvailable: [null, Validators.required]
+  })
+
+  get name() {
+    return this.carForm.get('name')
+  }
+  get startLocation() {
+    return this.carForm.get('startLocation')
+  }
+  get destination() {
+    return this.carForm.get('destination')
+  }
+  get car() {
+    return this.carForm.get('car')
+  }
+  get seatsAvailable() {
+    return this.carForm.get('seatsAvailable')
+  }
+  
   onSubmitHandler(){
-    console.log(this.carModel)
+    console.log(this.carForm.value)
   }
 }
